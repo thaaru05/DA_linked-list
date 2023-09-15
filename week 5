@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+struct Node* head = NULL;
+
+
+struct Node* create() {
+    struct Node* S = (struct Node*)malloc(sizeof(struct Node));
+    printf("Enter the element: ");
+    scanf("%d", &S->data);
+    S->next = NULL;
+    return S;
+}
+
+
+void addList() {
+    struct Node* newNode = create();
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct Node* temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+
+void display(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d\n", temp->data);
+        temp = temp->next;
+    }
+}
+
+void del_pos(int pos) {
+    if (head == NULL) {
+        printf("Empty list\n");
+        return;
+    }
+
+    if (pos == 1) {
+        struct Node* temp = head;
+        head = head->next;
+        free(temp);
+    } else {
+        struct Node* current = head;
+        struct Node* previous = NULL;
+        int count = 1;
+
+        while (current != NULL && count != pos) {
+            previous = current;
+            current = current->next;
+            count++;
+        }
+
+       
+
+        previous->next = current->next;
+        free(current);
+    }
+
+    display(head);
+}
+
+int main() {
+	
+	int k,m,n,i;
+	printf("Enter the number of nodes:");
+	scanf("%d",&k);
+	for(i=0;i<k;i++)
+	{
+		addList();
+	}
+	printf("Enter the value of m:");
+	scanf("%d",&m);
+	printf("Enter the value of n:");
+	scanf("%d",&n);
+	
+	for(i=0;i<k;i++)
+	{
+		if(i<m)
+		{
+			display(head);
+		}m=m+n;
+		if(i<n){
+			del_pos(i);
+		} n=m+n;
+		
+	}
+	
+	
+	
+}
