@@ -59,15 +59,13 @@ int main() {
 
     int i = 0;
     while (head != NULL) {
-        if (i < m) {
+        if (i % (m + n) < m) {
             displayMNodes(m);
-        }
-        i += m;
-
-        if (i < n) {
+        } else {
             deleteNNodes(n);
         }
-        i += n;
+        i += m + n;
     }
+
     return 0;
 }
