@@ -1,91 +1,55 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<Stdlib.h>
 
-#define MAX_SIZE 100 // Maximum size of the stack
+int a[15];
+int tos=-1;
 
-int Arr[MAX_SIZE];
-int top = 0; // Initialize top of stack to 0
-
-void push(int size) {
-    int data;
-    if (top == size) {
-        printf("Stack is full\n");
-    } else {
-        scanf("%d", &data);
-        Arr[top++] = data;
-    }
+void push(int v)
+{
+	tos++;
+	a[tos]=v;
+}
+void pop()
+{
+	value=a[tos];
+	printf("%d",value);
+	tos--;
 }
 
-void pop() {
-    if (top == 0) {
-        printf("Stack is empty\n");
-    } else {
-        int var = Arr[--top];
-        printf("Popped element is: %d\n", var);
-    }
-}
-
-void peek() {
-    if (top == 0) {
-        printf("Stack is empty\n");
-    } else {
-        int var = Arr[top - 1];
-        printf("Top element is: %d\n", var);
-    }
-}
-
-void display() {
-    if (top == 0) {
-        printf("Stack is empty\n");
-    } else {
-        printf("Stack elements: ");
-        for (int i = 0; i < top; i++) {
-            printf("%d ", Arr[i]);
-        }
-        printf("\n");
-    }
-}
-
-int main() {
-    int size;
-    printf("Enter the size of the stack: ");
-    scanf("%d", &size);
-
-    if (size <= 0 || size > MAX_SIZE) {
-        printf("Invalid stack size\n");
-        return 1;
-    }
-
-    while (1) {
-        int n;
-        printf("1. Push\n");
-        printf("2. Pop\n");
-        printf("3. Peek\n");
-        printf("4. Display\n");
-        printf("5. Exit\n");
-        printf("Enter the choice: ");
-        scanf("%d", &n);
-
-        switch (n) {
-            case 1:
-                push(size);
-                break;
-            case 2:
-                pop();
-                break;
-            case 3:
-                peek();
-                break;
-            case 4:
-                display();
-                break;
-            case 5:
-                printf("THE END\n");
-                return 0;
-            default:
-                printf("Invalid choice\n");
-        }
-    }
-
-    return 0;
+void main()
+{
+	char exp[15]="532*+";
+	int index;
+	for(index=0,exp[index]!='',index++)
+	push(result);
+	{
+		if(exp[index]=='*')
+		{
+			a=pop();
+			b=pop();
+			result=a*b;
+		}
+		else if(exp[index]=='/')
+		{
+			a=pop();
+			b=pop();
+			result=a/b;
+		}
+		else if(exp[index]=='+')
+		{
+			a=pop();
+			b=pop();
+			result=a+b;
+		}
+		else if(exp[index]=='-')
+		{
+			a=pop();
+			b=pop();
+			result=a-b;
+		}
+		else
+		{
+			printf("INVALID")
+		}
+	}
 }
