@@ -1,0 +1,100 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+void push(int size)
+{
+	int data;
+	scanf("%d",&data);
+	if(top==size-1)
+	{
+		printf("Stack is full");
+	}
+	else
+	{
+		Arr[top]=data;
+		top++;
+	}
+}
+
+void pop()
+{
+	if(top==0)
+	{
+		printf("Empty");
+	}
+	else
+	{
+		var=Arr[top];
+		top--;
+		printf("Pop element is:",var);
+	}
+}
+
+void peek()
+{
+		if(top==0)
+	{
+		printf("Empty");
+	}
+	else
+	{
+		var=Arr[top];
+		printf("Pop element is:",var);
+	}
+	
+}
+
+void display(int size)
+{
+	int i=0;
+	for(i=0;i<size;i++)
+	{
+		printf(Arr[i])
+	}
+}
+
+void main()
+{
+	int size;
+	printf("Enter the size of the stack:");
+	scanf("%d",&size);
+	int Arr[size];
+	
+	while(1)
+	{
+		int n;
+		printf("1.Push");
+		printf("2.Pop");
+		printf("3.Peek");
+		printf("4.Display");
+		printf("5.Exit");
+		printf("Enter the choice:");
+		scanf("%d",&n);
+		if(n==1)
+		{
+			push();
+		}
+		else if(n==2)
+		{
+			pop();
+		}
+		else if(n==3)
+		{
+			peek();
+		}
+		else if(n==4)
+		{
+			display();
+		}
+		else if(n==5)
+		{
+			printf("THE END");
+			break;
+		}
+		else
+		{
+			printf("INVALID");
+		}
+	}
+}
