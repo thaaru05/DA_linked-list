@@ -58,7 +58,7 @@ int main() {
 
     if (tos==0)
 	{
-        printf("Result: %d\n", a);
+        printf("Result: %d\n",pop();
     }
 	else
 	{
