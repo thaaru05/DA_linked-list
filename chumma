@@ -1,57 +1,114 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int a[15];
-int tos = -1;
+#define MAX_SIZE 100 
+int Arr[MAX_SIZE];
 
-void push(int v) {
-    tos++;
-    a[tos] = v;
+int front,rear;
+front=-1;
+rear=-1;  
+
+void enqueue()
+{
+	if(front==-1)
+	{
+		int value;
+		printf("Enter the value");
+		scanf("%d",&value);
+		rear=rear+1;
+		front=front+1;
+		Arr[rear]=value;
+	}
+	else if(rear+1=size)
+	{
+		printf("The queue is full");
+	}
+	else
+	{
+		int value;
+		rear=rear+1;
+		Arr[rear]=value;
+		
+	}
 }
 
-int pop() {
-    int value = a[tos];
-    tos--;
-    return value;
+void dequeue()
+{
+	if(front==-1)
+	{
+		printf("Queue is empty");
+	}
+	else
+	{
+		int value;
+		printf("Enter the value");
+		scanf("%d",&value);
+		Arr[front]=value;
+		front++;
+		
+	}
 }
 
-int main() {
-    char exp[15] = "532*+";
-    int index;
-    int result, a, b;
+void display()
+{
+	if (rear==-1)
+	{
+        printf("Queue is empty\n");
+    }
+	else
+	{
+    	int i;
+        printf("Queue elements: ");
+        for (i = 0; i < top; i++)
+		{
+            printf("%d ", Arr[i]);
+        }
+        printf("\n");
+    }
+}
 
-    for (index = 0; exp[index] != '\0'; index++) {
-        if (isdigit(exp[index])) {
-            push(exp[index] - '0'); // Convert character digit to integer
-        } else {
-            b = pop();
-            a = pop();
-            switch (exp[index]) {
-                case '*':
-                    result = a * b;
-                    break;
-                case '/':
-                    result = a / b;
-                    break;
-                case '+':
-                    result = a + b;
-                    break;
-                case '-':
-                    result = a - b;
-                    break;
-                default:
-                    printf("INVALID\n");
-                    return 1;
-            }
-            push(result);
+
+int main()
+{
+	int size;
+    printf("Enter the size of the queue: ");
+    scanf("%d", &size);
+    if (size <= 0 || size > MAX_SIZE)
+	{
+        printf("Invalid stack size\n");
+        return 1;
+    }
+    while (1) 
+	{
+        int n;
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter the choice: ");
+        scanf("%d", &n);
+
+        switch (n) {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("THE END\n");
+                return 0;
+            default:
+                printf("Invalid choice\n");
         }
     }
 
-    if (tos == 0) {
-        printf("Result: %d\n", a);
-    } else {
-        printf("INVALID\n");
-    }
-
     return 0;
+    
+    
+    
+    
 }
