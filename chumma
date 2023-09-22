@@ -1,86 +1,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_SIZE 100 
+#define MAX_SIZE 100
 int Arr[MAX_SIZE];
 
-int front,rear;
-front=-1;
-rear=-1;  
+int front = -1;
+int rear = -1;
 
-void enqueue()
-{
-	if(front==-1)
-	{
-		int value;
-		printf("Enter the value");
-		scanf("%d",&value);
-		rear=rear+1;
-		front=front+1;
-		Arr[rear]=value;
-	}
-	else if(rear+1=size)
-	{
-		printf("The queue is full");
-	}
-	else
-	{
-		int value;
-		rear=rear+1;
-		Arr[rear]=value;
-		
-	}
-}
-
-void dequeue()
-{
-	if(front==-1)
-	{
-		printf("Queue is empty");
-	}
-	else
-	{
-		int value;
-		printf("Enter the value");
-		scanf("%d",&value);
-		Arr[front]=value;
-		front++;
-		
-	}
-}
-
-void display()
-{
-	if (rear==-1)
-	{
-        printf("Queue is empty\n");
+void enqueue(int value) {
+    if (rear == MAX_SIZE - 1) {
+        printf("The queue is full\n");
+    } else {
+        if (front == -1) {
+            front = 0;
+        }
+        rear = rear + 1;
+        Arr[rear] = value;
     }
-	else
-	{
-    	int i;
+}
+
+void dequeue() {
+    if (front == -1) {
+        printf("Queue is empty\n");
+    } else {
+        printf("Dequeued value: %d\n", Arr[front]);
+        if (front == rear) {
+            // If only one element is in the queue, reset front and rear
+            front = -1;
+            rear = -1;
+        } else {
+            front = front + 1;
+        }
+    }
+}
+
+void display() {
+    if (front == -1) {
+        printf("Queue is empty\n");
+    } else {
         printf("Queue elements: ");
-        for (i = 0; i < top; i++)
-		{
+        for (int i = front; i <= rear; i++) {
             printf("%d ", Arr[i]);
         }
         printf("\n");
     }
 }
 
-
-int main()
-{
-	int size;
+int main() {
+    int size;
     printf("Enter the size of the queue: ");
     scanf("%d", &size);
-    if (size <= 0 || size > MAX_SIZE)
-	{
-        printf("Invalid stack size\n");
+
+    if (size <= 0 || size > MAX_SIZE) {
+        printf("Invalid queue size\n");
         return 1;
     }
-    while (1) 
-	{
-        int n;
+
+    while (1) {
+        int n, value;
         printf("1. Enqueue\n");
         printf("2. Dequeue\n");
         printf("3. Display\n");
@@ -90,7 +67,13 @@ int main()
 
         switch (n) {
             case 1:
-                enqueue();
+                if (rear == MAX_SIZE - 1) {
+                    printf("The queue is full\n");
+                } else {
+                    printf("Enter the value: ");
+                    scanf("%d", &value);
+                    enqueue(value);
+                }
                 break;
             case 2:
                 dequeue();
@@ -107,8 +90,4 @@ int main()
     }
 
     return 0;
-    
-    
-    
-    
 }
