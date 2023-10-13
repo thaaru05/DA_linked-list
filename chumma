@@ -1,7 +1,117 @@
-A critical point in a linked list is defined as a local minima. A node is a local minima if the
-current node has a value strictly smaller than the previous node and the next node.
-Note that a node can only be a local minima if there exists both a previous node and a
-next node. Given a linked list head, return an array of length 2 containing [minDistance,
-maxDistance] where minDistance is the minimum distance between any two distinct
-critical points and maxDistance is the maximum distance between any two distinct
-critical points. If there are fewer than two critical points, return [-1, -1].
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the node structure
+struct node {
+    int data;
+    struct node *next;
+};
+
+// Function to find critical points
+void findCriticalPoints(struct node *head) {
+    int minDistance = -1; // Initialize minDistance to -1
+    int maxDistance = -1; // Initialize maxDistance to -1
+
+    struct node *current = head;
+
+    while (current != NULL && current->next != NULL && current->next->next != NULL) {
+        // Check if the current node is a local minima
+        if (current->data < current->next->data && current->data < current->next->next->data) {
+            // Calculate distances
+            int distance = 0;
+            struct node *temp = current;
+
+            // Calculate minimum distance
+            while (temp != NULL && temp->next != NULL) {
+                distance++;
+                if (temp->data < temp->next->data) {
+                    break;
+                }
+                temp = temp->next;
+            }
+            if (minDistance == -1 || distance < minDistance) {
+                minDistance = distance;
+            }
+
+            // Calculate maximum distance
+            distance = 0;
+            while (temp != NULL && temp->next != NULL) {
+                distance++;
+                if (temp->data < temp->next->data) {
+                    break;
+                }
+                temp = temp->next;
+            }
+            if (distance > maxDistance) {
+                maxDistance = distance;
+            }
+        }
+
+        current = current->next;
+    }
+
+    if (minDistance == -1 || maxDistance == -1) {
+        printf("[-1, -1]\n");
+    } else {
+        printf("[%d, %d]\n", minDistance, maxDistance);
+    }
+}
+
+// Function to create a new node
+struct node* createNode(int data) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to add a node to the end of the list
+void addNode(struct node** head, int data) {
+    struct node* newNode = createNode(data);
+
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+int main() {
+    struct node *head = NULL;
+
+    while (1) {
+        int n;
+        printf("Enter the choice:\n");
+        printf("1. Create a node\n");
+        printf("2. Add a node\n");
+        printf("3. Find critical points\n");
+        printf("4. Exit\n");
+        scanf("%d", &n);
+
+        switch (n) {
+            case 1: {
+                int data;
+                printf("Enter the data for the new node: ");
+                scanf("%d", &data);
+                addNode(&head, data);
+                break;
+            }
+            case 2: {
+                int data;
+                printf("Enter the data for the new node: ");
+                scanf("%d", &data);
+                addNode(&head, data);
+                break;
+            }
+            case 3:
+                findCriticalPoints(head);
+                break;
+            case 4:
+                return 0;
+        }
+    }
+}
